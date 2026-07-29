@@ -1,5 +1,6 @@
 **Predicting Stroke Risk from Patient Health Data****
 A machine learning case study in building for a real-world constraint: minimizing missed diagnoses on a severely imbalanced clinical dataset.
+
 __https://github.com/kamaldeenjnr/stroke-risk-prediction__
 The Problem
 Stroke is one of the leading causes of death and long-term disability worldwide, and early risk identification is one of the few levers that actually changes outcomes. This project builds a machine learning pipeline that estimates a patient's stroke risk from routinely collected health data — age, hypertension, heart disease history, average glucose level, BMI, smoking status, and related demographic and lifestyle attributes.
