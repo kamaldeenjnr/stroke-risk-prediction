@@ -1,5 +1,5 @@
 
-**Predicting Stroke Risk from Patient Health Data****
+Predicting Stroke Risk from Patient Health Data
 
 A machine learning case study in building for a real-world constraint: minimizing missed diagnoses on a severely imbalanced clinical dataset.
 
@@ -9,15 +9,15 @@ __https://github.com/kamaldeenjnr/stroke-risk-prediction__
 
 **The Problem**
 
-Stroke is one of the leading causes of death and long-term disability worldwide, and early risk identification is one of the few levers that actually changes outcomes. This project builds a machine learning pipeline that estimates a patient's stroke risk from routinely collected health data — age, hypertension, heart disease history, average glucose level, BMI, smoking status, and related demographic and lifestyle attributes.
+Stroke is one of the leading causes of death and long-term disability worldwide, and early risk identification is one of the few levers that actually changes outcomes. This project builds a machine learning pipeline that estimates a patient's stroke risk from routinely collected health data age, hypertension, heart disease history, average glucose level, BMI, smoking status, and related demographic and lifestyle attributes.
 
 The dataset itself presented the project's central challenge: only **4.9% of patients** in the data had experienced a stroke. A model trained naively on this data could report 95%+ accuracy while never correctly identifying a single at-risk patient a textbook failure mode in medical screening applications, and the exact failure mode this project was built to avoid.
 The Core Design Decision
 
 In a clinical screening context, the cost of a **false negative** (telling an at-risk patient they're fine) is far higher than the cost of a **false positive** (flagging a healthy patient for a closer look). A missed stroke risk can cost a life; an unnecessary follow-up test costs time and money.
 
-This project makes that tradeoff explicit rather than leaving it as an accident of the metric. Instead of optimizing for raw accuracy, the model selection and threshold were tuned to **maximize recall** (the share of actual stroke cases the model correctly catches) while keeping the resulting false-positive rate at a workable level for a screening tool — not a diagnostic one.
-That distinction — screening tool vs. diagnostic tool — shaped every decision below.
+This project makes that tradeoff explicit rather than leaving it as an accident of the metric. Instead of optimizing for raw accuracy, the model selection and threshold were tuned to **maximize recall** (the share of actual stroke cases the model correctly catches) while keeping the resulting false-positive rate at a workable level for a screening tool not a diagnostic one.
+That distinction screening tool vs. diagnostic tool shaped every decision below.
 Approach
 
 **1. Handling class imbalance**
@@ -31,7 +31,7 @@ Three candidate models were trained and evaluated under cross-validation:
 - XGBoost
 Each was tuned via cross-validated hyperparameter search, optimizing for ROC-AUC to get a fair, threshold-independent comparison before selecting a final model and decision threshold.
 **3. Model selection**
-**Logistic Regression**- not the more complex ensemble methods came out on top. This is worth stating plainly rather than glossing over: on this dataset, the simpler, more interpretable model generalized better than Random Forest or XGBoost. In a healthcare context, that's a genuine advantage, not just a tiebreaker — a linear model's coefficients are directly explainable to a clinician in a way a boosted tree ensembles aren't.
+**Logistic Regression**- not the more complex ensemble methods came out on top. This is worth stating plainly rather than glossing over: on this dataset, the simpler, more interpretable model generalized better than Random Forest or XGBoost. In a healthcare context, that's a genuine advantage, not just a tiebreaker a linear model's coefficients are directly explainable to a clinician in a way a boosted tree ensembles aren't.
 **4. Threshold tuning**
 Rather than using the default 0.5 classification threshold, the decision threshold was tuned specifically to favor recall, consistent with the screening-tool framing above.
 ## Results
@@ -42,7 +42,7 @@ Rather than using the default 0.5 classification threshold, the decision thresho
 | Accuracy | 74% |
 | Precision | 13.5% |
 
-**What this means in practice:** out of every 50 patients who will actually go on to have a stroke, the model correctly flags 40 of them. It does raise a meaningful number of false alarms along the way — roughly 6 flagged patients for every 1 true case — which is the direct, intentional cost of prioritizing recall. In a screening context, that's a defensible trade: a false alarm prompts a follow-up conversation; a missed case doesn't get a second chance.
+**What this means in practice:** out of every 50 patients who will actually go on to have a stroke, the model correctly flags 40 of them. It does raise a meaningful number of false alarms along the way roughly 6 flagged patients for every 1 true case which is the direct, intentional cost of prioritizing recall. In a screening context, that's a defensible trade: a false alarm prompts a follow-up conversation; a missed case doesn't get a second chance.
 The 0.841 ROC-AUC indicates strong overall discriminative ability between the two classes across all thresholds, independent of the specific operating point chosen.
 ## What's in the Repository
 ```
