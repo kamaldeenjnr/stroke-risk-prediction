@@ -1,8 +1,12 @@
 **Predicting Stroke Risk from Patient Health Data****
+
 A machine learning case study in building for a real-world constraint: minimizing missed diagnoses on a severely imbalanced clinical dataset.
+
+Dataset: Available upon request
 
 __https://github.com/kamaldeenjnr/stroke-risk-prediction__
 The Problem
+
 Stroke is one of the leading causes of death and long-term disability worldwide, and early risk identification is one of the few levers that actually changes outcomes. This project builds a machine learning pipeline that estimates a patient's stroke risk from routinely collected health data — age, hypertension, heart disease history, average glucose level, BMI, smoking status, and related demographic and lifestyle attributes.
 
 The dataset itself presented the project's central challenge: only **4.9% of patients** in the data had experienced a stroke. A model trained naively on this data could report 95%+ accuracy while never correctly identifying a single at-risk patient — a textbook failure mode in medical screening applications, and the exact failure mode this project was built to avoid.
@@ -13,8 +17,11 @@ In a clinical screening context, the cost of a **false negative** (telling an at
 This project makes that tradeoff explicit rather than leaving it as an accident of the metric. Instead of optimizing for raw accuracy, the model selection and threshold were tuned to **maximize recall** (the share of actual stroke cases the model correctly catches) while keeping the resulting false-positive rate at a workable level for a screening tool — not a diagnostic one.
 That distinction — screening tool vs. diagnostic tool — shaped every decision below.
 Approach
+
 **1. Handling class imbalance**
+
 With a 4.9% positive rate, standard training would bias the model heavily toward predicting "no stroke" for everyone. **SMOTE** (Synthetic Minority Over-sampling Technique) was applied to the training data to synthetically balance the classes, giving the model enough signal on the minority class to learn from.
+
 **2. Model comparison**
 Three candidate models were trained and evaluated under cross-validation:
 - Logistic Regression
